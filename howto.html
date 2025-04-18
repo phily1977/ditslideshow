@@ -1,0 +1,83 @@
+<html>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <link rel="stylesheet" href="ditslideshow.css" />
+  <script type="text/javascript" src="ditslideshow.js"></script>
+
+</head>
+<body>
+<div>TOP SLIDESHOW</div>
+<div class="mainwrap">
+<div class="mainslideshow">
+	<div id="bg0" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="1">A Time-Traveling Tribute: A tribute to the heroes of the Four-Row Warehouse</a></span></div></div>
+		<div class="slideimage"><img src="images/1.jpg" /></div>
+		
+	</div>
+	<div id="bg1" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="1">Spring Palette: Take the subway to see the tulips</a></span></div></div>
+		<div class="slideimage"><img src="images/2.jpg" /></div>
+		
+	</div>
+	<div id="bg2" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="2">Held in the park, there are millions of tulips in the area, cherry blossoms, begonias, etc., which together form a sea of spring flowers.</a></span></div></div>	
+		<div class="slideimage"><img src="images/3.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">Early cherry blossoms: burrowing into the spring dimensional wall of Shanghai</a></span></div></div>
+		<div class="slideimage"><img src="images/4.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">More than just a transportation hub, these metro stations are hidden with stunning views!</a></span></div></div>
+		<div class="slideimage"><img src="images/5.jpg" /></div>
+	</div>	
+	<div class="tipbar">
+		<div class="flipdot"></div>
+	</div>
+</div>
+<div>
+
+<div>
+<div class="bottomwrap">
+<div class="subslideshow">
+	<div id="bg1" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="1">Spring Palette: Take the subway to see the tulips</a></span></div></div>
+		<div class="slideimage"><img src="images/2.jpg" /></div>
+		
+	</div>
+	<div id="bg2" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="2">Held in the park, there are millions of tulips in the area, cherry blossoms, begonias, etc., which together form a sea of spring flowers.</a></span></div></div>	
+		<div class="slideimage"><img src="images/3.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">Early cherry blossoms: burrowing into the spring dimensional wall of Shanghai</a></span></div></div>
+		<div class="slideimage"><img src="images/4.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">More than just a transportation hub, these metro stations are hidden with stunning views!</a></span></div></div>
+		<div class="slideimage"><img src="images/5.jpg" /></div>		
+	<div class="tipbar">
+		<div class="flipdot"></div>
+	</div>
+</div>
+</div>
+
+
+BOTTOM SLIDESHOW</div>
+</body>
+<script>
+
+
+var dss = new ditSlideShow();
+dss.bind(".mainslideshow");
+dss.show();
+
+var dss1 = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'50%','dotsize':'8px','interval':3000});
+dss1.bind(".subslideshow");
+dss1.show();
+
+</script>
+</html>
