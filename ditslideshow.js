@@ -1,12 +1,20 @@
-//ditSlideShow图片幻灯片
-/*配置config
-	config = {'subtitle_fontsize' : '24pt','subtitle_top':'60%','dotwidth':'14px','interval':4000};
+/*
+ditSlideShow图片幻灯片
+配置config
+	config = {'subtitle_fontsize' : '24pt',
+		'subtitle_top':'60%',
+		'dotwidth':'14px',
+		'interval':4000,
+		'animation':'fade'
+		};
+
+	'animation'有'fade'、'bounce'、'zoom'、'slide'、'flip'
 */
 class ditSlideShow
 {
 	
 	//构造函数
-	constructor(config = {'subtitle_fontsize' : '24pt','subtitle_top':'60%','dotsize':'14px','interval':4000}){
+	constructor(config = {'subtitle_fontsize' : '24pt','subtitle_top':'60%','dotsize':'14px','interval':4000,'animation':'fadeIn'}){
 	
 		this.interval = (config.interval!=null)?config.interval:4000;
 		this.slide_cur_img = 0;
@@ -37,6 +45,7 @@ class ditSlideShow
 				cur_dot.className = "circle";
 			}
 			curObj.slide_cur_img++;
+			
 		}else
 		{
 			curObj.animateOut(imgs[curObj.slide_cur_img-1]);
@@ -53,25 +62,35 @@ class ditSlideShow
 	//手动翻页
 	turn2Slide(index)
 	{
-		var imgs = this.eleSlideBox.querySelectorAll(".slide");
-		console.log("turn to:" + index);
-		this.animateOut(imgs[parseInt(this.slide_cur_img)]);
+		try{
 			
-		console.log("fade out:" + this.slide_cur_img);
-		this.slide_cur_img = index;
-		this.animateIn(imgs[index]);
-		console.log("fade in:" + this.slide_cur_img);
-		
-		var dots =  this.eleSlideBox.querySelectorAll(".flipdot > div[slideid]");
-		for(var i=0;i<dots.length;i++)
+			var imgs = this.eleSlideBox.querySelectorAll(".slide");
+			console.log("turn to:" + index);
+			if (this.slide_cur_img==imgs.length) this.slide_cur_img=imgs.length-1;	//复位
+			this.animateOut(imgs[parseInt(this.slide_cur_img)]);
+				
+			console.log("fade out:" + this.slide_cur_img);
+			this.slide_cur_img = index;
+			this.animateIn(imgs[index]);
+			console.log("fade in:" + this.slide_cur_img);
+			
+			
+			
+			var dots =  this.eleSlideBox.querySelectorAll(".flipdot div[slideid]");
+			for(var i=0;i<dots.length;i++)
+			{
+				if (i==index)
+					dots[i].className = "circlealive";
+				else
+					dots[i].className = "circle";
+			}
+			var cur_dot =  this.eleSlideBox.querySelector(".flipdot > div[slideid='"+this.slide_cur_img+"']");
+			cur_dot.className = "circlealive";
+		}catch(e)
 		{
-			if (i==index)
-				dots[i].className = "circlealive";
-			else
-				dots[i].className = "circle";
+			console.log(this.eleSlideBox.innerHTML);
+			console.log(e);
 		}
-		var cur_dot =  this.eleSlideBox.querySelector(".flipdot > div[slideid='"+this.slide_cur_img+"']");
-		cur_dot.className = "circlealive";
 	}
 	
 	//渲染html
@@ -124,18 +143,39 @@ class ditSlideShow
 		this.slideInterval = setInterval(this.autoTurnSlides, this.interval,this);
 	}
 	
-	
+	//动画
 	animateIn(e)
 	{
 		e.style.display="";
-
-		e.className = "slidebg slide animate__animated animate__fadeIn";
+		switch (this.config.animation)
+		{
+			case "fade":
+				e.className = "slidebg slide animate__animated animate__fadeIn";
+				break;
+			case "bounce":
+				e.className = "slidebg slide animate__animated animate__bounceIn";
+				break;
+			case "zoom":
+				e.className = "slidebg slide animate__animated animate__zoomIn";
+				
+				break;
+			case "slide":
+				e.className = "slidebg slide animate__animated animate__slideInDown";
+				break;
+			case "flip":
+				e.className = "slidebg slide animate__animated animate__flipInX";
+				break;
+			default:
+				e.className = "slidebg slide animate__animated animate__fadeIn";
+				break;
+		}
+		e.style.opacity = 100;
 	}
 	
 	animateOut(e)
 	{
-		e.className = "slidebg slide";
-		//e.style.display = "none";	
+		e.className = "slidebg slide animate__animated animate__fadeOut";
+		e.style.opacity = 100;
 	}
 	
 }
