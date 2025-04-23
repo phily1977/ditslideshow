@@ -1,1 +1,20 @@
-一个网页的slideshow
+DiTSlideShow使用帮助
+如何使用：
+在所需要的实现slideshow的网页首先引入js和css文件 slide切换动画需要animate.css，https://animate.style/
+
+样例代码：
+
+引用js和样式
+
+实例化javascript代码
+
+var dss = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'fade'}); dss.bind(".mainslideshow"); dss.show();
+代码说明：
+参数是slideshow的配置
+
+var config = {'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'fade'};
+subtitle_fontsize:标题文字大小
+subtitle_top:标题离顶部距离
+dotsize:切换点的大小
+interval:切换间隔秒
+animation:动画类型（'fade'、'bounce'、'zoom'、'slide'、'flip'）
