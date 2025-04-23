@@ -11,6 +11,19 @@
 	height:200px;
 	aspect-ratio: 2.4 / 1;
 }
+.zoomslideshow{
+	position:relative;
+	width: 300px;
+	height:200px;
+	aspect-ratio: 2.4 / 1;
+}
+
+.slideslideshow{
+	position:relative;
+	width: 300px;
+	height:200px;
+	aspect-ratio: 2.4 / 1;
+}
 
 .slidebg {
   position: absolute;

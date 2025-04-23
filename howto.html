@@ -9,7 +9,48 @@
 
 </head>
 <body>
-<div>TOP SLIDESHOW</div>
+<h2>DiTSlideShow使用帮助</h2>
+<div><strong>如何使用：</strong></div>
+<div>
+	<p>
+		在所需要的实现slideshow的网页首先引入js和css文件
+		slide切换动画需要animate.css，<a href="https://animate.style/">https://animate.style/</a>
+	</p>
+	<p>
+	<strong>样例代码：</strong>
+	</p>
+	<p>
+		引用js和样式
+		<code>
+			<link rel="stylesheet"
+				  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+			<link rel="stylesheet" href="ditslideshow.css" />
+			<script type="text/javascript" src="ditslideshow.js"></script>
+
+		</code>
+		<p>实例化javascript代码</p>
+		<code>
+			var dss = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'fade'});
+			dss.bind(".mainslideshow");
+			dss.show();
+		</code>
+		<p>
+		代码说明：<br />
+		参数是slideshow的配置</br>
+		</p>
+		<code>
+		var config = {'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'fade'};
+		</code>
+		<ul>
+			<li>subtitle_fontsize:标题文字大小</li>
+			<li>subtitle_top:标题离顶部距离</li>
+			<li>dotsize:切换点的大小</li>
+			<li>interval:切换间隔秒</li>
+			<li>animation:动画类型（'fade'、'bounce'、'zoom'、'slide'、'flip'）</li>
+		</ul>
+	</p>
+
+</div>
 <div class="mainwrap">
 <div class="mainslideshow">
 	<div id="bg0" class="slidebg slide">
@@ -38,10 +79,11 @@
 		<div class="flipdot"></div>
 	</div>
 </div>
-<div>
+</div>
 
 <div>
 <div class="bottomwrap">
+<div>Animation: flip</div>
 <div class="subslideshow">
 	<div id="bg1" class="slidebg slide">
 		<div class="subtitle"><div><span><a href="1">Spring Palette: Take the subway to see the tulips</a></span></div></div>
@@ -58,16 +100,70 @@
 	</div>
 	<div id="bg3" class="slidebg slide">
 		<div class="subtitle"><div><span><a href="3">More than just a transportation hub, these metro stations are hidden with stunning views!</a></span></div></div>
-		<div class="slideimage"><img src="images/5.jpg" /></div>		
+		<div class="slideimage"><img src="images/5.jpg" /></div>
+	</div>
 	<div class="tipbar">
 		<div class="flipdot"></div>
 	</div>
 </div>
+<div>Animation: zoom</div>
+<div class="zoomslideshow">
+	<div id="bg1" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="1">Spring Palette: Take the subway to see the tulips</a></span></div></div>
+		<div class="slideimage"><img src="images/2.jpg" /></div>
+		
+	</div>
+	<div id="bg2" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="2">Held in the park, there are millions of tulips in the area, cherry blossoms, begonias, etc., which together form a sea of spring flowers.</a></span></div></div>	
+		<div class="slideimage"><img src="images/3.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">Early cherry blossoms: burrowing into the spring dimensional wall of Shanghai</a></span></div></div>
+		<div class="slideimage"><img src="images/4.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">More than just a transportation hub, these metro stations are hidden with stunning views!</a></span></div></div>
+		<div class="slideimage"><img src="images/5.jpg" /></div>
+	</div>
+	<div class="tipbar">
+		<div class="flipdot"></div>
+	</div>
+</div>
+
+<div>Animation: slide</div>
+<div class="slideslideshow">
+	<div id="bg1" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="1">Spring Palette: Take the subway to see the tulips</a></span></div></div>
+		<div class="slideimage"><img src="images/2.jpg" /></div>
+		
+	</div>
+	<div id="bg2" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="2">Held in the park, there are millions of tulips in the area, cherry blossoms, begonias, etc., which together form a sea of spring flowers.</a></span></div></div>	
+		<div class="slideimage"><img src="images/3.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">Early cherry blossoms: burrowing into the spring dimensional wall of Shanghai</a></span></div></div>
+		<div class="slideimage"><img src="images/4.jpg" /></div>
+	</div>
+	<div id="bg3" class="slidebg slide">
+		<div class="subtitle"><div><span><a href="3">More than just a transportation hub, these metro stations are hidden with stunning views!</a></span></div></div>
+		<div class="slideimage"><img src="images/5.jpg" /></div>
+	</div>
+	<div class="tipbar">
+		<div class="flipdot"></div>
+	</div>
+</div>
+
 </div>
 
 
-BOTTOM SLIDESHOW</div>
+<div>BOTTOM SLIDESHOW</div>
+</div>
+
 </body>
+
+</html>
+
 <script>
 
 
@@ -75,9 +171,16 @@ var dss = new ditSlideShow();
 dss.bind(".mainslideshow");
 dss.show();
 
-var dss1 = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'50%','dotsize':'8px','interval':3000});
+var dss1 = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'flip'});
 dss1.bind(".subslideshow");
 dss1.show();
 
+var dss2 = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'zoom'});
+dss2.bind(".zoomslideshow");
+dss2.show();
+
+
+var dss3 = new ditSlideShow({'subtitle_fontsize' : '12pt','subtitle_top':'20%','dotsize':'8px','interval':3000,'animation':'slide'});
+dss3.bind(".slideslideshow");
+dss3.show();
 </script>
-</html>
