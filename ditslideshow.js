@@ -1,10 +1,13 @@
 /*
 ditSlideShow图片幻灯片
 配置config
-	config = {'subtitle_fontsize' : '24pt',
+	config = {
+		'tipbar_top':'35%',
+		'subtitle_fontsize' : '24pt',
 		'subtitle_top':'60%',
 		'dotwidth':'14px',
 		'interval':4000,
+		'arrow_size':'2em',
 		'animation':'fade'
 		};
 
@@ -193,20 +196,28 @@ class ditSlideShow
 		},false);
 		
 		this.eleSlideBox.addEventListener("touchend",function(evt){
-			var ts_x = parseInt(evt.target.getAttribute("ts_x"));
-			var te_x = parseInt(evt.target.getAttribute("te_x"));
-			console.log("TOUCH END",te_x,ts_x);
 			
-			//
-			if ((te_x-ts_x)>0){
-				var leftobj = evt.target.parentElement.parentElement.parentElement.parentElement.querySelector(".turnbar .leftbtn img");
-				leftobj.click();
+			try{
+				var ts_x = parseInt(evt.target.getAttribute("ts_x"));
+				var te_x = parseInt(evt.target.getAttribute("te_x"));
+				console.log("TOUCH END",te_x,ts_x);
+				
+				//有横向滑动距离后翻页
+				if ((te_x-ts_x)>20){
+					var leftobj = evt.target.parentElement.parentElement.parentElement.parentElement.querySelector(".turnbar .leftbtn img");
+					leftobj.click();
+				}
+				else if((te_x-ts_x)<-20)
+				{
+					var rightobj = evt.target.parentElement.parentElement.parentElement.parentElement.querySelector(".turnbar .rightbtn img");
+					rightobj.click();
+				}
 			}
-			else
+			catch(ex)
 			{
-				var rightobj = evt.target.parentElement.parentElement.parentElement.parentElement.querySelector(".turnbar .rightbtn img");
-				rightobj.click();
+				console.log(ex);
 			}
+			
 		},false);
 		
 		
