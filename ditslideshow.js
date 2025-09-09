@@ -1,5 +1,7 @@
 /*
-ditSlideShow图片幻灯片
+ditSlideShow图片幻灯片,版本1.1
+作者：Phil
+
 配置config
 	config = {
 		'tipbar_top':'35%',
@@ -12,25 +14,124 @@ ditSlideShow图片幻灯片
 		};
 
 	'animation'有'fade'、'bounce'、'zoom'、'slide'、'flip'
+	
+	data为json数据,如果data不为空则按照data来生成
+	data = {
+		"slides":[{"pic":"images/0.jpg","url":"0","title":"1) Held in the park, there are millions of tulips"},
+				{"pic":"images/1.jpg","url":"1","title":"2) A Time-Traveling Tribute: A tribute to the heroes of the Four-Row Warehouse"},
+				{"pic":"images/2.jpg","url":"2","title":"3) Spring Palette: Take the subway to see the tulips"},
+				]
+	}
 */
 class ditSlideShow
 {
 	
 	//构造函数
-	constructor(config = {'tipbar_top':'35%','subtitle_fontsize' : '24pt','subtitle_top':'50%','dotsize':'14px','interval':4000,'arrow_size':'2em','animation':'fadeIn'}){
-	
+	constructor(config = {'tipbar_top':'35%','subtitle_fontsize' : '24pt','subtitle_top':'50%','dotsize':'14px','interval':4000,'arrow_size':'2em','animation':'fadeIn'})
+	{
 		this.interval = (config.interval!=null)?config.interval:4000;
 		this.slide_cur_img = 0;
 		this.config = config;
-	
 	}
 	
+	//url数据获取
+	async getdata(url){
+		let response = await fetch(url);
+		let data = await response.json();
+		
+		this.eleSlideBox.data = data;
+		this.eleSlideBox.dispatchEvent(new CustomEvent('slideDataReady', {
+			detail:{
+				eleSlideBox:this.eleSlideBox,
+				thisobj:this
+			},
+			bubbles: false, // 事件是否冒泡
+			cancelable: false, // 事件能否被取消
+			composed: false // 事件是否会在影子DOM根节点之外触发侦听器
+		}));
+		
+		
+		
+		return data;
+	}
+	
+	
 	//绑定页面对象
-	bind(objElementClassName){
+	bind(objElementClassName,data=null){
 		this.eleSlideBox = document.querySelector(objElementClassName);
 		this.slide_cur_img = 0;
 		this.eleSlideBox.side_cur_img = 0;
+		
+		//异步加载远程的json数据
+		this.eleSlideBox.addEventListener('slideDataReady', function (evt) {
+			//如果data不为空则按照data来生成
+			console.log(evt.target);
+			console.log(evt.detail.eleSlideBox.data);
+			if (this.data!=null)
+			{
+				evt.detail.thisobj.init(evt.detail.eleSlideBox);
+			}
+		});
+		
+		
+		console.log(typeof data);
+		if (typeof data == 'object'){
+			//data就是数据
+			this.data = data;
+			this.eleSlideBox.data = data;
+			if (this.data!=null)
+			{
+				this.init(this.eleSlideBox);
+			}
+		}else{
+			//data是字符串url，远程获取数据
+			this.data = this.getdata(data);
+			
+		}
+
 	}
+	
+	//初始化dom
+	init(eleSlideBox){
+		//清空绑定元素内容
+		eleSlideBox.innerHTML = "";
+		for(var i=0;i<eleSlideBox.data.slides.length;i++)
+		{
+			var slidebg = document.createElement("div");
+			slidebg.setAttribute("id","bg"+i);
+			slidebg.className = "slidebg slide";
+			
+			var subtitle = document.createElement("div");
+			subtitle.className = "subtitle";
+			subtitle.innerHTML ="<div><span><a href=\""+eleSlideBox.data.slides[i].url+"\">"+eleSlideBox.data.slides[i].title+"</a></span></div>";
+			slidebg.appendChild(subtitle);
+			
+			var slideimage = document.createElement("div");
+			slideimage.className = "slideimage";
+			slideimage.innerHTML ="<img src=\""+eleSlideBox.data.slides[i].pic+"\" />";
+			slidebg.appendChild(slideimage);
+			
+			eleSlideBox.appendChild(slidebg);
+
+
+		}
+		
+		//点翻页
+		var tipbar = document.createElement("div");
+		tipbar.className = "tipbar";
+		tipbar.innerHTML = "<div class=\"turnbar\"><div class=\"leftbtn\"><img src=\"toolsicon/angle-left.svg\"/></div><div class=\"rightbtn\"><img src=\"toolsicon/angle-right.svg\"/></div></div><div class=\"flipdot\"></div>";
+		
+		eleSlideBox.appendChild(tipbar);
+		
+		eleSlideBox.dispatchEvent(new CustomEvent('slideReady', {
+
+			bubbles: false, // 事件是否冒泡
+			cancelable: false, // 事件能否被取消
+			composed: false // 事件是否会在影子DOM根节点之外触发侦听器
+		}));
+		
+	}
+	
 	
 	//图片轮播函数
 	autoTurnSlides(curObj) {
@@ -268,6 +369,7 @@ class ditSlideShow
 		{
 			case "fade":
 				e.className = "slidebg slide animate__animated animate__fadeIn";
+				
 				break;
 			case "bounce":
 				e.className = "slidebg slide animate__animated animate__bounceIn";
@@ -287,12 +389,14 @@ class ditSlideShow
 				break;
 		}
 		e.style.opacity = 100;
+		e.style.zIndex = 99;
 	}
 	
 	animateOut(e)
 	{
 		e.className = "slidebg slide animate__animated animate__fadeOut";
 		e.style.opacity = 100;
+		e.style.zIndex=-1;
 	}
 	
 }

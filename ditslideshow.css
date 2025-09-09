@@ -5,6 +5,20 @@
 	aspect-ratio: 2.4 / 1;
 }
 
+.mainslideshow1{
+	position:relative;
+	width: max(1000px, 100%);
+	height:400px;
+	aspect-ratio: 2.4 / 1;
+}
+
+.mainslideshow11{
+	position:relative;
+	width: max(1000px, 100%);
+	height:400px;
+	aspect-ratio: 2.4 / 1;
+}
+
 .subslideshow{
 	position:relative;
 	width: 300px;
@@ -85,20 +99,67 @@
 
 .tipbar{
     position: relative;
-    top: 90%;
+    top: 40%;
     text-align: center;
     width: 100%;
     left: 0;
     bottom: 0;
     height: 30px;
-
+	z-index:99;
 }
 
-.flipdot {
+.tipbar .flipdot {
 	width: 100%;
     display: flex;
     align-content: center;
     justify-content: center;	
+	padding-top:min(8%,80px);
+}
+
+.tipbar .turnbar{
+	line-height:1.5em;
+	opacity:0;
+}
+
+
+
+.tipbar .leftbtn{
+	float:left;
+    position: relative;
+	font-size:2em;
+    top: 0;
+	color:white;
+	border:1px solid #c2c2c2;
+	border-radius:4px;
+	padding-top:1em;
+	padding-bottom:1em;
+	
+}
+.tipbar .leftbtn img{
+	height:2em;
+	filter: invert(1);
+	cursor:hand;
+
+}
+
+
+.tipbar .rightbtn{
+	float:right;
+    position: relative;
+	font-size:2em;
+    top: 0;
+	color:white;
+	border:1px solid #c2c2c2;
+	border-radius:4px;
+	padding-top:1em;
+	padding-bottom:1em;	
+	
+}
+.tipbar .rightbtn img{
+	height:2em;
+	filter: invert(1);
+	cursor:hand;
+
 }
 
 .circle {
